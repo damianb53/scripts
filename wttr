@@ -1,3 +1,3 @@
 #!/bin/sh
-
-curl https://wttr.in
+URL=$(echo "https://wttr.in/$@" | sed -r 's/ /%20/g')
+curl "$URL"
