@@ -1,0 +1,4 @@
+#!/bin/sh
+# Make sure that hidden services are enabled for this script to work
+
+sudo cat /var/lib/tor/hidden_service/hostname
