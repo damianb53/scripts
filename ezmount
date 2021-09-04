@@ -1,0 +1,12 @@
+#!/bin/sh
+# ezmount -- mount unmounted partitions
+
+set -e
+UNMOUNTED="$(lsblk -r -o NAME,MOUNTPOINT | grep -E '*[0-9]' | grep -v '/')"
+
+for PARTITION in $UNMOUNTED
+do
+	[[ ! -d "/dev/$PARTITION" ]] && 
+	mkdir "/mnt/$PARTITION" && 
+	sudo mount "/dev/$PARTITION" "/mnt/$PARTITION"
+done

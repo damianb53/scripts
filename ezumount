@@ -1,0 +1,20 @@
+#!/bin/sh
+# ezumount -- unmount partitions mounted in /mnt
+
+set -e
+MOUNTED=$(ls -d /mnt/*)
+printf "Unmounting:\n$MOUNTED\n\n"
+
+for DIR in $MOUNTED
+do
+	[[ -n "$(ls -A $DIR)" ]] && umount "$DIR"
+done
+
+
+EMPTY="$(ls -d /mnt/*)"
+printf "Removing empty directories:\n$EMPTY\n" &&
+
+for E in $EMPTY
+do
+	[[ -z "$(ls -A $E)" ]] && rm -rd "$E"
+done
