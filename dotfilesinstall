@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[[ ! -d .dotfiles ]] && git clone --mirror https://github.com/damianb53/dotfiles .dotfiles
+git --git-dir=.dotfiles/ --work-tree=/home/pi checkout master ~
