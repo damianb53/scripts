@@ -1,0 +1,8 @@
+#!/bin/sh
+
+all=`ls * | wc -l`
+ext=`ls *."$1" | wc -l`
+
+percent=`bc <<< "scale=2; ($ext/$all)*100"`
+
+printf "$ext/$all = "$percent"%% \n"
