@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Usage
+# avify <dir?>
+# Files and dirs cannot contain spaces in their names!
+
+set -o
+
+speed=3
+min=25
+max=30
+threads=all
+codec=aom #aom, rav1e
+delete_after='true'
+
+compress() {
+	full="$1"
+	base="${full%.*}"
+
+	avifenc --speed $speed \
+		--jobs $threads \
+		--codec $codec \
+		--min $min \
+		--max $max \
+		"$full" -o "$base".avif
+}
+
+uncompressed=`find $1 -regex '.*\.\(jpg\|jpeg\|png\)'`
+for image in $uncompressed; do
+	echo "$image"
+	compress "$image" && [[ "$delete_after" == 'true' ]] && rm "$image"
+done
+
