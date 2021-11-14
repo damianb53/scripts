@@ -1,0 +1,8 @@
+#!/bin/sh
+
+printf "Replacing spaces with underscores\n"
+
+for i in *' '*; do
+	echo "$i"
+	mv "$i" `echo $i | sed -e 's/ /_/g'`;
+done
