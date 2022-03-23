@@ -1,0 +1,52 @@
+#!/bin/bash
+#
+# sortbyartist
+#
+# Expected file name format: Artist - Song ...
+# ----------------------------
+# USAGE
+#   sortbyartist <in_dir> <out_dir>
+# OR
+#   sortbyartist <in_file> <out_dir>
+# ----------------------------
+
+
+# Handle directory as input
+[ -d "$1" ] && (
+    # Resolve . and ..
+    path="$(realpath "$1")"
+
+    read -p "Run sortbyartist on $path? Confirm (y/N) " confirm
+    case "$confirm" in
+        y|Y|yes|YES|Yes) ;;
+        n|N|NO|No) exit ;;
+        *) exit ;;
+    esac
+
+    # Run sortbyartist on eatch file
+    for f in "$1"/*; do
+        $0 "$f" "$2"
+    done
+)
+
+# Handle file as input
+[ -f "$1" ] && (
+    out_path="$2"
+    # Set path as pwd if missing output directory
+    [ -z "$2" ] && out_path="."
+
+    # Expected format: Artist - Song ... 
+    artist="$(basename "$1")"
+    artist="${artist%' - '*}"
+
+    # Capitalize first letter
+    artist="${artist^}"
+    [ -d "$out_path" ] || mkdir "$out_path"
+    # Resolve . and ..
+    artist_dir="$(realpath "$out_path/$artist")"
+
+    [ -d "$artist_dir" ] || mkdir "$artist_dir" 
+    echo "$1"
+    cp "$1" "$artist_dir"
+)
+
