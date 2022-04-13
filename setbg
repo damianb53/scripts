@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# setbg
+# -------------------
+# WALLDIR must be set
+#
+
+find "$WALLDIR" -type f | sxiv -tio | xwallpaper --zoom
