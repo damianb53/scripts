@@ -1,0 +1,6 @@
+#!/bin/sh
+
+user=''
+version=''
+
+portablemc start -u "$user" "$version"
